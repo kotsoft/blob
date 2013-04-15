@@ -3,7 +3,7 @@ c = document.getElementsByTagName('canvas')[0];
 a = c.getContext('2d');
 
 var BlobParams = function() {
-    this.emitRate = .1;
+    this.emitRate = .01;
     this.terrainSpeed = .01;
     this.terrainAmplitude = 99;
     this.hillWidth = 99;
