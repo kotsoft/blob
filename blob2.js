@@ -2,6 +2,10 @@ b = document.body;
 c = document.getElementsByTagName('canvas')[0];
 a = c.getContext('2d');
 
+a.sl = function(c) {
+    a.fillStyle = c;
+}
+
 var BlobParams = function() {
     this.emitRate = .01;
     this.terrainSpeed = .01;
