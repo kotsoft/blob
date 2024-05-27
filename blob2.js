@@ -6,6 +6,8 @@ a.sl = function(c) {
     a.fillStyle = c;
 }
 
+a.fl = a.fill;
+
 var BlobParams = function() {
     this.emitRate = .01;
     this.terrainSpeed = .01;
