@@ -2,12 +2,6 @@ b = document.body;
 c = document.getElementsByTagName('canvas')[0];
 a = c.getContext('2d');
 
-a.sl = function(c) {
-    a.fillStyle = c;
-}
-
-a.fl = a.fill;
-
 var BlobParams = function() {
     this.emitRate = .01;
     this.terrainSpeed = .01;
@@ -34,7 +28,7 @@ onmousemove=function(e) {
 	my = e.pageY-c.offsetTop;
 }
 
-setInterval(function() {
+var loop = function() {
     amp = blobParams.terrainAmplitude;
     c.width=innerWidth;
     var H = (c.height=innerHeight)-150;
@@ -78,9 +72,9 @@ setInterval(function() {
     
     for (var i = nb; i--; ) {
         var blob = blobs[i];
-        a.sl(blob.c);
-        a.ba();
-        a.mv(blob[0].x,blob[0].y);
+        a.fillStyle = blob.c;
+        a.beginPath();
+        a.moveTo(blob[0].x,blob[0].y);
         // Edge springs and vertex normal calculation. Note that there is no need for square roots in this particular implementation. Edge springs have a rest length of 0 and edges remain pretty similar in length.
         var qa = 0;
         var qb = 0;
@@ -109,10 +103,10 @@ setInterval(function() {
             qb += q.x * rny + q.nx * r.y - r.x * q.ny - rnx * q.y;
             qc += q.x*r.y-r.x*q.y;
 
-            a.ln(p.x, p.y);
+            a.lineTo(p.x, p.y);
         }
-        a.sr();
-        a.fl();
+    	a.fill();
+        a.stroke();
         
         qa /= (Math.sqrt(qb * qb - 4 * qa * (qc - blob.a)) - qb) / 2;
         
@@ -147,4 +141,7 @@ setInterval(function() {
         blob.cx /= 20;
         blob.cy /= 20;
     }
-}, 8);
+    requestAnimationFrame(loop);
+};
+
+loop();
